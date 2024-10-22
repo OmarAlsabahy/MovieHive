@@ -77,6 +77,10 @@ dependencies {
 
     //Glide
     implementation(libs.glide)
+
+    //Youtube Player
+    implementation(libs.core)
+    implementation(libs.chromecast.sender)
 }
 
 kapt {

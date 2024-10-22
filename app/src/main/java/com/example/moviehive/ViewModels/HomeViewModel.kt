@@ -1,5 +1,6 @@
 package com.example.moviehive.ViewModels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,9 +14,11 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo) : ViewModel() {
     private val _showingMovies = MutableLiveData<List<MovieResult>>()
-    val showingMovies = _showingMovies
+    val showingMovies :LiveData<List<MovieResult>>
+        get() = _showingMovies
     private val _popularMovies = MutableLiveData<List<MovieResult>>()
-    val popularMovies = _popularMovies
+    val popularMovies:LiveData<List<MovieResult>>
+        get() = _popularMovies
 
     fun getNowShowing(){
         viewModelScope.launch {

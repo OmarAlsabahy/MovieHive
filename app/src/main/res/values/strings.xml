@@ -7,4 +7,7 @@
     <string name="moviename">MovieName</string>
     <string name="rate">Rate</string>
     <string name="popular">Popular</string>
+    <string name="description">Description</string>
+    <string name="play_trailer">Play Trailer</string>
+    <string name="trailer_is_not_available">Trailer is not available</string>
 </resources>

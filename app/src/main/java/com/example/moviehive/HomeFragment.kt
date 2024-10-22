@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.moviehive.ClickListnersInterfaces.MovieClickListener
 import com.example.moviehive.RecyclerViewAdapters.NowShowingAdapter
 import com.example.moviehive.RecyclerViewAdapters.PopularAdapter
 import com.example.moviehive.ViewModels.HomeViewModel
@@ -13,7 +16,7 @@ import com.example.moviehive.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment() , MovieClickListener {
     lateinit var binding: FragmentHomeBinding
     val viewModel: HomeViewModel by viewModels()
     lateinit var nowShowingAdapter : NowShowingAdapter
@@ -30,13 +33,32 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.bind(view)
         viewModel.getNowShowing()
         viewModel.getPopular()
+        observe()
+
+
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                requireActivity().finish()
+            }
+
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
+
+    }
+
+    private fun observe() {
         viewModel.showingMovies.observe(viewLifecycleOwner){
-            nowShowingAdapter = NowShowingAdapter(it)
+            nowShowingAdapter = NowShowingAdapter(it ,this)
             binding.nowShowingRecycler.adapter = nowShowingAdapter
         }
         viewModel.popularMovies.observe(viewLifecycleOwner){
-            popularAdapter = PopularAdapter(it)
+            popularAdapter = PopularAdapter(it,this)
             binding.popularRecycler.adapter = popularAdapter
         }
+    }
+
+    override fun onClick(movieId: Int) {
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(movieId))
     }
 }
