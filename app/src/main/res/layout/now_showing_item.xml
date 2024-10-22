@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/_10sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/postImageCard"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:elevation="@dimen/_10sdp"
+        >
+
+        <ImageView
+            android:id="@+id/postImage"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_170sdp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher_background"
+
+            />
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/moviename"
+        app:layout_constraintStart_toStartOf="@id/postImageCard"
+        app:layout_constraintEnd_toEndOf="@id/postImageCard"
+        app:layout_constraintTop_toBottomOf="@id/postImageCard"
+        android:textSize="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:id="@+id/movieName"/>
+    <ImageView
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:src="@drawable/baseline_star_24"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintStart_toStartOf="@id/movieName"
+        app:layout_constraintTop_toBottomOf="@id/movieName"
+
+
+        android:id="@+id/rateStar"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rate"
+        app:layout_constraintStart_toEndOf="@id/rateStar"
+        app:layout_constraintTop_toTopOf="@id/rateStar"
+        android:textSize="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="@id/rateStar"
+        android:id="@+id/rate"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

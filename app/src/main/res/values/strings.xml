@@ -2,4 +2,9 @@
     <string name="app_name">MovieHive</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="moviehive">MovieHive</string>
+    <string name="now_showing">Now Showing</string>
+    <string name="moviename">MovieName</string>
+    <string name="rate">Rate</string>
+    <string name="popular">Popular</string>
 </resources>
