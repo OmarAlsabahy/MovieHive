@@ -24,6 +24,6 @@ class NetworkFragment : Fragment() {
             }
 
         }
-        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,onBackPressedCallback)
     }
 }

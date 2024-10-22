@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.moviehive.Api.Models.MovieModel
 import com.example.moviehive.Api.Models.MovieResult
 import com.example.moviehive.Repositories.HomeRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,14 +20,20 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo) : ViewMo
     private val _popularMovies = MutableLiveData<List<MovieResult>>()
     val popularMovies:LiveData<List<MovieResult>>
         get() = _popularMovies
+    private var showingMoviesData = mutableListOf<MovieResult>()
+    private var popularMoviesData = mutableListOf<MovieResult>()
 
+    private companion object{
+        var popularPageNumber = 1
+        var nowShowingPageNumber = 1
+    }
     fun getNowShowing(){
         viewModelScope.launch {
             val result = viewModelScope.async {
-                val resultMovies = homeRepo.getNowShowingMovies()
-                resultMovies.results
-            }
-            _showingMovies.value = result.await()
+               homeRepo.getNowShowingMovies(nowShowingPageNumber)
+            }.await().results
+            showingMoviesData.addAll(result)
+            _showingMovies.postValue(showingMoviesData)
         }
 
     }
@@ -34,14 +41,18 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo) : ViewMo
     fun getPopular(){
         viewModelScope.launch {
             val result = viewModelScope.async {
-                val movieResults = homeRepo.getPopularMovies()
-                movieResults.results
-            }
-
-            _popularMovies.value = result.await()
-
+                 homeRepo.getPopularMovies(popularPageNumber)
+            }.await().results
+            popularMoviesData.addAll(result)
+            _popularMovies.postValue(popularMoviesData)
         }
     }
 
+    fun increasePopularPageNumber(){
+        popularPageNumber+=1
+    }
+    fun increaseNowShowingPageNumber(){
+        nowShowingPageNumber+=1
+    }
 
 }

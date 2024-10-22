@@ -8,8 +8,8 @@ import com.example.moviehive.Api.Models.MovieResult
 import com.example.moviehive.ClickListnersInterfaces.MovieClickListener
 import com.example.moviehive.databinding.NowShowingItemBinding
 
-class NowShowingAdapter(private val data : List<MovieResult> , private val listener: MovieClickListener):RecyclerView.Adapter<NowShowingAdapter.ViewHolder>() {
-
+class NowShowingAdapter( private val listener: MovieClickListener):RecyclerView.Adapter<NowShowingAdapter.ViewHolder>() {
+    private var data : MutableList<MovieResult> = mutableListOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = NowShowingItemBinding.inflate(LayoutInflater.from(parent.context) , parent , false)
         return ViewHolder(binding)
@@ -24,6 +24,12 @@ class NowShowingAdapter(private val data : List<MovieResult> , private val liste
         holder.itemView.setOnClickListener {
             holder.onClick(data[position])
         }
+    }
+
+    fun addMovies(movies:List<MovieResult>){
+        val previousSize = data.size
+        data.addAll(movies)
+        notifyItemRangeInserted(previousSize , movies.size)
     }
 
     inner class ViewHolder(private val binding : NowShowingItemBinding) : RecyclerView.ViewHolder(binding.root){

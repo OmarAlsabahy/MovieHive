@@ -5,6 +5,10 @@ import javax.inject.Inject
 class TrailerRepo @Inject constructor(private val movieApi: MovieApi) {
     suspend fun getMovieKey(movieId:Int): String {
         val movie = movieApi.getMovieVideoById(movieId)
+        if (movie.results.isEmpty())
+        {
+            return ""
+        }
         return movie.results[0].key
     }
 }

@@ -32,14 +32,19 @@ class TrailerFragment : Fragment() {
         movieId = TrailerFragmentArgs.fromBundle(requireArguments()).movieId
         youTubePlayer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
             override fun onReady(youTubePlayer: YouTubePlayer) {
-                viewModel.getMovieKey(movieId)
+                    viewModel.getMovieKey(movieId)
                 viewModel.movieKey.observe(viewLifecycleOwner){
-                    try {
-                        youTubePlayer.loadVideo(it,0f)
-                    }catch (e:Exception){
-                        binding.warning.visible()
-                        binding.videoPlayer.gone()
+                    if (!it.isNullOrEmpty()){
+                        try {
+                            youTubePlayer.loadVideo(it,0f)
+                        }catch (e:Exception){
+                            binding.warning.visible()
+                            binding.videoPlayer.gone()
+                        }
+                    }else{
+                        youTubePlayer.loadVideo("b_e_y_3HAs",0f)
                     }
+
 
                 }
 
